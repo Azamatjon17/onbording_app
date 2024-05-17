@@ -37,8 +37,8 @@ class _MainAppState extends State<MainApp> {
         child: Column(
           children: [
             Expanded(
-              child: Image.asset("images/loop.png"),
               flex: 2,
+              child: Image.asset("images/loop.png"),
             ),
             const Expanded(child: Center(child: CircularProgressIndicator()))
           ],

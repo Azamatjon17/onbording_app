@@ -75,10 +75,10 @@ class _SecondPageState extends State<SecondPage> {
                     "Set Your Schedule",
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
-                      fontSize: 40,
+                      fontSize: 35,
                     ),
                   ),
-                  const Gap(25),
+                  const Gap(20),
                   const Text(
                     "Quick see your upcoming event, task, conference calls, weather, and more",
                     style: TextStyle(

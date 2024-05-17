@@ -31,7 +31,7 @@ class CreatePage extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const Gap(35),
+            const Gap(20),
             Container(
               height: 300,
               width: 400,

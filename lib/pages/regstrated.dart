@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_flutter/icons_flutter.dart';
+import 'package:onbording_app/models/databases.dart';
 import 'package:onbording_app/pages/loginpage.dart';
 
 class RegstreetePage extends StatefulWidget {
@@ -16,6 +17,10 @@ class _RegstreetePageState extends State<RegstreetePage> {
   TextEditingController emailcontroler = TextEditingController();
   TextEditingController passwordcontroler1 = TextEditingController();
   TextEditingController passwordcontroler2 = TextEditingController();
+  String? nameerror;
+  String? emailerror;
+  String? passworderror1;
+  String? passworderror2;
 
   bool ishide = true;
   @override
@@ -23,7 +28,7 @@ class _RegstreetePageState extends State<RegstreetePage> {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+        padding: const EdgeInsets.fromLTRB(20, 0, 10, 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,6 +48,7 @@ class _RegstreetePageState extends State<RegstreetePage> {
                 const Gap(15),
                 TextField(
                   decoration: InputDecoration(
+                    errorText: nameerror,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(
@@ -53,9 +59,10 @@ class _RegstreetePageState extends State<RegstreetePage> {
                   ),
                   controller: namecontroler,
                 ),
-                const Gap(20),
+                const Gap(15),
                 TextField(
                   decoration: InputDecoration(
+                    errorText: emailerror,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(
@@ -66,9 +73,10 @@ class _RegstreetePageState extends State<RegstreetePage> {
                   ),
                   controller: emailcontroler,
                 ),
-                const Gap(20),
+                const Gap(15),
                 TextField(
                   decoration: InputDecoration(
+                      errorText: passworderror1,
                       contentPadding: const EdgeInsets.all(4),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -87,9 +95,10 @@ class _RegstreetePageState extends State<RegstreetePage> {
                   controller: passwordcontroler1,
                   obscureText: ishide,
                 ),
-                const Gap(20),
+                const Gap(15),
                 TextField(
                   decoration: InputDecoration(
+                      errorText: passworderror2,
                       contentPadding: const EdgeInsets.all(4),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -108,7 +117,7 @@ class _RegstreetePageState extends State<RegstreetePage> {
                   controller: passwordcontroler2,
                   obscureText: ishide,
                 ),
-                const Gap(25),
+                const Gap(15),
                 Center(
                   child: RichText(
                       text: TextSpan(children: [
@@ -128,7 +137,58 @@ class _RegstreetePageState extends State<RegstreetePage> {
             Column(
               children: <Widget>[
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    if (namecontroler.text.trim().isEmpty || (emailcontroler.text.trim().isEmpty && !emailcontroler.text.contains("@")) || (passwordcontroler1.text.trim().isEmpty) || passwordcontroler2.text.trim().isEmpty) {
+                      if (namecontroler.text.trim().isEmpty) {
+                        nameerror = "Ismingizni kriting";
+                      }
+                      if (emailcontroler.text.trim().isEmpty && !emailcontroler.text.contains("@")) {
+                        emailerror = "Email hato kritilgan ";
+                      }
+                      if (passwordcontroler1.text.trim().isEmpty) {
+                        passworderror1 = "Parol kriting ";
+                      }
+                      if (passwordcontroler2.text.trim().isEmpty) {
+                        passworderror2 = "Parolni qayta kriting ";
+                      }
+                    } else {
+                      if (passwordcontroler1.text == passwordcontroler2.text) {
+                        Databases.users.add({"name": namecontroler.text, "email": emailcontroler.text, "password": passwordcontroler1.text});
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              contentPadding: EdgeInsets.all(20),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.check_circle_outline_sharp,
+                                    color: Colors.green[600],
+                                    size: 60,
+                                  ),
+                                  const SizedBox(height: 5),
+                                  const Text(
+                                    "Muofaqiyatli",
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginPage())); // Close the dialog
+                                  },
+                                  child: const Text("Log in"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    }
+                    setState(() {});
+                  },
                   child: Container(
                     alignment: Alignment.center,
                     height: 60,

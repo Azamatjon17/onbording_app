@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_flutter/icons_flutter.dart';
 import 'package:onbording_app/models/databases.dart';
+import 'package:onbording_app/pages/homepage.dart';
 import 'package:onbording_app/pages/regstrated.dart';
 
 class LoginPage extends StatefulWidget {
@@ -110,9 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                   InkWell(
                     onTap: () {
                       if (checkaccount(email: emailcontroler.text, password: passwordcontroler.text)) {
-                        showAboutDialog(
-                          context: context,
-                        );
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Homepage()));
                       } else {
                         error = true;
 

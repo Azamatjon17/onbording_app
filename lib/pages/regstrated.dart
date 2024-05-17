@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:icons_flutter/icons_flutter.dart';
 import 'package:onbording_app/models/databases.dart';
 import 'package:onbording_app/pages/loginpage.dart';
 

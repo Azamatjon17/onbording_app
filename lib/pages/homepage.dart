@@ -5,9 +5,14 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [],
-      ),
-    );
+        body: Center(
+      child: Container(
+          height: double.infinity,
+          width: double.infinity,
+          child: Image.asset(
+            "images/image.png",
+            fit: BoxFit.cover,
+          )),
+    ));
   }
 }
